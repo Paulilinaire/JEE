@@ -5,6 +5,14 @@
     <title>Produits</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+    <script>
+        function confirmDelete(productId) {
+            var isConfirmed = confirm("Etes vous sûr de vouloir supprimé ce produit?");
+            if (isConfirmed) {
+                window.location.href = 'product?id=' + productId + '&action=delete';
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -36,7 +44,7 @@
             </td>
             <td>
                 <!-- Delete link with the product id as a parameter -->
-                <a href="#" onclick="deleteProduct(${product.getId()})">Delete</a>
+                <a href="confirmDelete?id=(${product.getId()})">Delete</a>
             </td>
         </tr>
     </c:forEach>

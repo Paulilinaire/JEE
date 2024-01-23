@@ -12,6 +12,8 @@
 <br/>
 <div class="mb-3">
     <a href="product">Afficher la totalité des produits</a>
+</div>
+<div class="mb-3">
     <a href="product-form.jsp">Ajouter un produit</a>
 </div>
 </body>

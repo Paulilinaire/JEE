@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.*;
 import model.Product;
 
 
-@WebServlet(name = "product", value = "/product")
+@WebServlet(name = "product", value = {"/product", "/confirmDelete"})
 public class ServletProduct extends HttpServlet {
 
     private ProductDAOImpl productDAO;
@@ -31,6 +31,8 @@ public class ServletProduct extends HttpServlet {
         productList = productDAO.getAllProducts();
         req.setAttribute("products", productList);
         req.getRequestDispatcher("product-list.jsp").forward(req,resp);
+
+
     }
 
     @Override
@@ -66,9 +68,9 @@ public class ServletProduct extends HttpServlet {
         // Forward to the product-list.jsp with the updated list
         req.setAttribute("products", productList);
         req.getRequestDispatcher("product-list.jsp").forward(req, resp);
+
+
     }
-
-
 
     public void destroy() {
     }
