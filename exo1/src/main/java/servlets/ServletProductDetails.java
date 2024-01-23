@@ -1,6 +1,6 @@
 package servlets;
 
-import dao.ProductDAOImpl;
+import dao.ProductDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,11 +13,11 @@ import java.io.IOException;
 @WebServlet(name = "product-details", value = "/product-details")
 public class ServletProductDetails extends HttpServlet {
 
-    private ProductDAOImpl productDAO;
+    private ProductDAO productDAO;
 
     @Override
     public void init() throws ServletException {
-        productDAO = new ProductDAOImpl();
+        productDAO = new ProductDAO();
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

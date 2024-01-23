@@ -14,13 +14,17 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductDAOImpl {
+public class ProductDAO {
 
-    private final SessionFactory sessionFactory;
+    private StandardServiceRegistry standardServiceRegistry;
+    private  SessionFactory sessionFactory;
 
-    public ProductDAOImpl() {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        this.sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+    public ProductDAO() {
+        standardServiceRegistry = new StandardServiceRegistryBuilder()
+                .configure()
+                .applySetting(AvailableSettings.CLASSLOADERS, Collections.singletonList(getClass().getClassLoader()))
+                .build();
+        sessionFactory = new MetadataSources(standardServiceRegistry).buildMetadata().buildSessionFactory();
     }
 
 

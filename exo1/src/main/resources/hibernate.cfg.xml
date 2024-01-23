@@ -8,6 +8,7 @@
     <session-factory>
 
         <mapping class="model.Product"/>
+        <mapping class="model.User"/>
 
 
     </session-factory>
