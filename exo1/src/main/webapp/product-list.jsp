@@ -40,7 +40,6 @@
                     <a class="btn btn-warning me-2" href="product-details?id=${product.getId()}" role="button">
                         <i class="bi bi-eye"></i> Details
                     </a>
-
                     <!-- Delete button with the product id as a parameter -->
                     <a class="btn btn-danger" href="product?action=delete&id=${product.getId()}" role="button">
                         <i class="bi bi-trash"></i> Supprimer

@@ -14,7 +14,7 @@
     <h1 class="mb-4">Détail du produit</h1>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-outline-info" href="product-list.jsp" role="button">
+        <a class="btn btn-outline-info" href="product" role="button">
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 

@@ -16,5 +16,7 @@
         <a href="product-form.jsp" class="btn btn-outline-info" role="button">Ajouter un produit</a>
     </div>
 </div>
+
+
 </body>
 </html>

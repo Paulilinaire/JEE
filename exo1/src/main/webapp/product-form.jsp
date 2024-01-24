@@ -17,7 +17,7 @@
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 
-    <div class="card border border-info-subtle" data-bs-theme="dark">
+    <card class="card border border-info-subtle" data-bs-theme="dark">
         <div class="card-body">
             <form action="product" method="post">
 
@@ -52,7 +52,7 @@
 
             </form>
         </div>
-    </div>
+    </card>
 </div>
 
 </body>

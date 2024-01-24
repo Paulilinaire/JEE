@@ -7,12 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.User;
+import utils.Definition;
 
 import java.io.IOException;
 
-@WebServlet(name = "auth", value = "/auth")
-public class ServletSignin extends HttpServlet {
+@WebServlet(name = "signin", value = "/signin")
+public class ServletAuth extends HttpServlet {
 
     UserDAO userDAO = new UserDAO();
 
@@ -37,7 +37,7 @@ public class ServletSignin extends HttpServlet {
         } else {
             // If authentication fails, show an error message
             req.setAttribute("message", "Authentication failed. Please check your username and password.");
-            req.getRequestDispatcher("authentication-failed.jsp").forward(req, resp);
+            req.getRequestDispatcher("auth-failed.jsp").forward(req, resp);
         }
     }
 
