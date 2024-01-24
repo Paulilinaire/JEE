@@ -8,12 +8,12 @@
 </head>
 
 <body class="bg-dark">
+    <jsp:include page="WEB-INF/includes/header.jsp"/>
+<div class="container">
 
-<div class="container mb-3">
+<h2 class="text-light mt-3 mb-3">Connecte-toi</h2>
 
-<h1 class="text-light">Connecte-toi</h1>
-
-<card class="card border border-info-subtle" data-bs-theme="dark">
+<card class="card border border-info-subtle">
     <div class="card-body">
     <form action="signin" method="post">
         <div class="mb-3">

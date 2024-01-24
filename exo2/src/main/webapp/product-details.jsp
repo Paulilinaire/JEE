@@ -9,12 +9,12 @@
 </head>
 
 <body class="bg-dark text-light">
-
+<jsp:include page="WEB-INF/includes/header.jsp"/>
 <div class="container mt-5">
     <h1 class="mb-4">Détail du produit</h1>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-outline-info" href="product" role="button">
+        <a class="btn btn-outline-info" href="product-list.jsp" role="button">
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 
@@ -31,6 +31,11 @@
                     <li class="list-group-item"><strong>Date de vente:</strong> ${product.saleDate}</li>
                     <li class="list-group-item"><strong>Stock:</strong> ${product.storage}</li>
                 </ul>
+                <!-- Add image display logic here -->
+                <div class="card-body">
+                    <h5 class="card-title">Image</h5>
+                    <img src="${product.imagePath}" alt="Product Image" class="img-fluid">
+                </div>
             </div>
         </c:when>
         <c:otherwise>

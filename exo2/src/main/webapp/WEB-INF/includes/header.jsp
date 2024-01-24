@@ -7,23 +7,24 @@
   <title></title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
-    <a class="navbar-brand" href="#">Mes produits</a>
+  <nav class="navbar navbar-expand-lg shadow-lg" data-bs-theme="dark">
+    <a class="navbar-brand" href="index.jsp">Product App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="list">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="product">Mes produits<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="new">Add</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Amazon</a>
-        </li>
-
+        <div class="d-flex justify-content-end">
+          <li class="nav-item text-end">
+              <a class="nav-link" href="user-form.jsp">S'inscrire</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="signin.jsp">Se connecter</a>
+          </li>
+        </div>
       </ul>
     </div>
   </nav>

@@ -15,5 +15,8 @@
 <div class="mb-3">
 <a href="personne-form.jsp">Formulaire</a>
 </div>
+<div class="mb-3">
+    <a href="form-upload.jsp">Formulaire</a>
+</div>
 </body>
 </html>

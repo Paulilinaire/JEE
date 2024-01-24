@@ -28,7 +28,7 @@ public class ProductDAO {
     }
 
 
-    public void addProduct(Product product) {
+    public boolean addProduct(Product product) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -40,6 +40,7 @@ public class ProductDAO {
             }
             e.printStackTrace();
         }
+        return true;
     }
 
 
@@ -58,38 +59,22 @@ public class ProductDAO {
         }
     }
 
-//    @Override
-//    public void updateProduct(long id, Product updatedProduct) {
-//        Session session = null;
-//        Transaction transaction = null;
-//        try {
-//            session = sessionFactory.openSession();
-//            transaction = session.beginTransaction();
-//
-//            Product productToUpdate = session.get(Product.class, id);
-//
-//            if (productToUpdate != null) {
-//                productToUpdate.setReference(updatedProduct.getReference());
-//                productToUpdate.setBrand(updatedProduct.getBrand());
-//                productToUpdate.setSaleDate(updatedProduct.getSaleDate());
-//                productToUpdate.setPrice(updatedProduct.getPrice());
-//                productToUpdate.setStorage(updatedProduct.getStorage());
-//
-//                session.update(productToUpdate);
-//            }
-//
-//            transaction.commit();
-//        } catch (Exception e) {
-//            if (transaction != null && transaction.isActive()) {
-//                transaction.rollback();
-//            }
-//            e.printStackTrace();
-//        } finally {
-//            if (session != null) {
-//                session.close();
-//            }
-//        }
-//    }
+
+    public boolean updateProduct(Product product) {
+        boolean result = true;
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.update(product);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            result = false;
+        }
+        return result;
+    }
 
 
 

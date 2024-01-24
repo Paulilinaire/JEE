@@ -8,8 +8,12 @@
 </head>
 
 <body class="bg-dark">
+    <jsp:include page="WEB-INF/includes/header.jsp"/>
+<div class="container">
+
 <div class="container mt-5 text-light">
     <h2>Erreur est survenue lors de l'authentification.</h2>
+</div>
 </div>
 </body>
 

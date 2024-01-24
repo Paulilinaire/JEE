@@ -10,7 +10,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.User;
-import utils.Definition;
 
 
 @WebServlet(name = "user", value = "/user")
@@ -34,7 +33,7 @@ public class ServletUser extends HttpServlet {
         if (action != null && action.equalsIgnoreCase("delete")) {
             long id = Long.parseLong(req.getParameter("id"));
             userDAO.deleteUser(id);
-            resp.sendRedirect(Definition.VIEW_PATH+"user");
+            resp.sendRedirect("user");
         } else {
             userList = userDAO.getAllUsers();
             req.setAttribute("users", userList);

@@ -1,5 +1,9 @@
 package dao;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import model.Product;
 import model.User;
 import model.User;
 import org.hibernate.Session;
@@ -11,6 +15,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 

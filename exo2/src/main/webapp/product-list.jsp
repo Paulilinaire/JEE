@@ -7,18 +7,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="bg-dark">
+<jsp:include page="WEB-INF/includes/header.jsp"/>
 
 <div class="container mt-5">
     <h1 class="text-light mb-3">La liste des produits</h1>
 
-<div class="d-flex justify-content-end mb-3">
-    <a class="btn btn-outline-info" href="index.jsp" role="button">
-        <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
-</div>
-
     <table class="table table-striped text-center" data-bs-theme="dark">
+        <!-- Table Header -->
         <thead>
         <tr>
+            <th scope="col">Image</th>
             <th scope="col">Nom</th>
             <th scope="col">Marque</th>
             <th scope="col">Prix</th>
@@ -28,8 +26,11 @@
         </tr>
         </thead>
         <tbody class="table-group-divider text-info">
+        <!-- Iterate through products -->
         <c:forEach items="${products}" var="product">
             <tr>
+                <!-- Display product information -->
+                <td></td>
                 <td>${product.getReference()}</td>
                 <td>${product.getBrand()}</td>
                 <td>${product.getPrice()} €</td>
@@ -40,22 +41,28 @@
                     <a class="btn btn-warning me-2" href="product-details?id=${product.getId()}" role="button">
                         <i class="bi bi-eye"></i> Details
                     </a>
+                    <!-- Update button with the product id as a parameter -->
+                    <button type="button" class="btn btn-info me-2" data-target="updateModal${product.getId()}" data-bs-toggle="modal" data-bs-target="#updateModal${product.getId()}">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </button>
                     <!-- Delete button with the product id as a parameter -->
                     <a class="btn btn-danger" href="product?action=delete&id=${product.getId()}" role="button">
                         <i class="bi bi-trash"></i> Supprimer
                     </a>
                 </td>
             </tr>
+
         </c:forEach>
         </tbody>
     </table>
 
     <c:if test="${empty products}">
-        <p class="text-center mt-3">Aucun produit n'est disponible pour le moment.</p>
+        <p class="text-center text-light mt-3">Aucun produit n'est disponible pour le moment.</p>
     </c:if>
 
-
-
+    <div class="d-flex justify-content-end mt-3 mb-3">
+        <a href="product-form.jsp" class="btn btn-success" role="button"><i class="bi bi-plus-circle me-2"></i>Ajouter un produit</a>
+    </div>
 </div>
 
 </body>
