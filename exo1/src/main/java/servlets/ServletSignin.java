@@ -11,7 +11,7 @@ import model.User;
 
 import java.io.IOException;
 
-@WebServlet(name = "signin", value = "/signin")
+@WebServlet(name = "auth", value = "/auth")
 public class ServletSignin extends HttpServlet {
 
     UserDAO userDAO = new UserDAO();
@@ -29,6 +29,9 @@ public class ServletSignin extends HttpServlet {
             session.setAttribute("isLogged", true);
             session.setAttribute("username", username);
 
+            // Log for debugging
+            System.out.println("User successfully authenticated. Redirecting to index.jsp.");
+
             // Redirect to the home page or any other secured page
             resp.sendRedirect("index.jsp");
         } else {
@@ -37,6 +40,7 @@ public class ServletSignin extends HttpServlet {
             req.getRequestDispatcher("authentication-failed.jsp").forward(req, resp);
         }
     }
+
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
