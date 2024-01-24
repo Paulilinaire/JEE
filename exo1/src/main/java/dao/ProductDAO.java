@@ -1,162 +1,137 @@
 package dao;
 
 import model.Product;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.query.Query;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductDAO {
-
-    private StandardServiceRegistry standardServiceRegistry;
-    private  SessionFactory sessionFactory;
+public class ProductDAO extends IBaseDAO {
 
     public ProductDAO() {
-        standardServiceRegistry = new StandardServiceRegistryBuilder()
-                .configure()
-                .applySetting(AvailableSettings.CLASSLOADERS, Collections.singletonList(getClass().getClassLoader()))
-                .build();
-        sessionFactory = new MetadataSources(standardServiceRegistry).buildMetadata().buildSessionFactory();
+        super();
     }
 
-
-    public boolean addProduct(Product product) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            session.save(product);
-            transaction.commit();
+    public boolean create(Product o) {
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(o);
+            session.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
             e.printStackTrace();
-        }
-        return true;
-    }
-
-
-
-    public void deleteProduct(long id) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            Product productToDelete = session.get(Product.class, id);
-            session.delete(productToDelete);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
             }
         }
     }
 
-
-    public boolean updateProduct(Product product) {
-        boolean result = true;
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            session.update(product);
-            transaction.commit();
+    public boolean update(Product o) {
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.update(o);
+            session.getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
             }
-            result = false;
         }
-        return result;
     }
 
+    public boolean delete(Product o) {
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.delete(o);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+    }
 
+    // Other methods with try-catch blocks...
 
-    public List<Product> getAllProducts() {
-        List<Product> productList = null;
-        try (Session session = sessionFactory.openSession()) {
-            Query<Product> productQuery = session.createQuery("from Product", Product.class);
+    public boolean deleteByBrand(String brand) {
+        try {
+            session = sessionFactory.openSession();
+            Query query = session.createQuery("delete Product where brand = :brand");
+            query.setParameter("brand", brand);
+            session.getTransaction().begin();
+            int success = query.executeUpdate();
+            session.getTransaction().commit();
+            return success > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+    }
+
+    public Product findById(long id) {
+        try {
+            Product product = null;
+            session = sessionFactory.openSession();
+            product = (Product) session.get(Product.class, id);
+            return product;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+    }
+
+    public List<Product> findAll() {
+        try {
+            List<Product> productList = null;
+            session = sessionFactory.openSession();
+            Query<Product> productQuery = session.createQuery("from Product");
             productList = productQuery.list();
+            return productList;
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return productList;
-    }
-
-
-    public Product getProductById(long id) {
-        Product product = null;
-        try (Session session = sessionFactory.openSession()) {
-            product = session.get(Product.class, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return product;
-    }
-
-    public List<Product> filterByPrice(double min) {
-        List<Product> productList = null;
-        Session session = null;
-
-        try {
-            if (min >= 0) {
-                session = sessionFactory.openSession();
-
-                Query<Product> productQuery = session.createQuery("from Product where price >= :min", Product.class);
-                productQuery.setParameter("min", min);
-
-                productList = productQuery.list();
-            }
-        } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
-            }
-            e.printStackTrace();
+            return Collections.emptyList();
         } finally {
-            if (session != null) {
+            if (session != null && session.isOpen()) {
                 session.close();
             }
         }
-
-        return productList;
     }
 
 
-    public List<Product> filterByDate(LocalDate min, LocalDate max) {
-        List<Product> productList = null;
-        Session session = null;
-
+    public void begin() {
         try {
-            if (min.isBefore(max)) {
-                session = sessionFactory.openSession();
-
-                Query<Product> productQuery = session.createQuery("from Product where saleDate >= :min and saleDate <= :max", Product.class);
-                productQuery.setParameter("min", min);
-                productQuery.setParameter("max", max);
-
-                productList = productQuery.list();
-            } else {
-                throw new Exception("Erreur de date : min doit être avant max.");
-            }
+            session = sessionFactory.openSession();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
-            }
             e.printStackTrace();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
-
-        return productList;
     }
 
-
+    public void end() {
+        try {
+            sessionFactory.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

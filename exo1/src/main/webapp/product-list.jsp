@@ -13,7 +13,6 @@
     <h1 class="text-light mb-3">La liste des produits</h1>
 
     <table class="table table-striped text-center" data-bs-theme="dark">
-        <!-- Table Header -->
         <thead>
         <tr>
             <th scope="col">Image</th>
@@ -26,10 +25,9 @@
         </tr>
         </thead>
         <tbody class="table-group-divider text-info">
-        <!-- Iterate through products -->
+
         <c:forEach items="${products}" var="product">
             <tr>
-                <!-- Display product information -->
                 <td></td>
                 <td>${product.getReference()}</td>
                 <td>${product.getBrand()}</td>
@@ -37,18 +35,9 @@
                 <td>${product.getSaleDate()}</td>
                 <td>${product.getStorage()}</td>
                 <td>
-                    <!-- Details button with the product id as a parameter -->
-                    <a class="btn btn-warning me-2" href="product-details?id=${product.getId()}" role="button">
-                        <i class="bi bi-eye"></i> Details
-                    </a>
-                    <!-- Update button with the product id as a parameter -->
-                    <button type="button" class="btn btn-info me-2" data-target="updateModal${product.getId()}" data-bs-toggle="modal" data-bs-target="#updateModal${product.getId()}">
-                        <i class="bi bi-pencil-square"></i> Edit
-                    </button>
-                    <!-- Delete button with the product id as a parameter -->
-                    <a class="btn btn-danger" href="product?action=delete&id=${product.getId()}" role="button">
-                        <i class="bi bi-trash"></i> Supprimer
-                    </a>
+                    <a href="details?id=${product.getId()}" role="button" class="btn btn-warning me-2"><i class="bi bi-eye me-2"></i>Détails</a>
+                    <a href="edit?id=${product.getId()}" role="button" class="btn btn-info me-2"><i class="bi bi-pencil-square me-2"></i>Editer</a>
+                    <a href="delete?id=${product.getId()}" role="button" class="btn btn-danger"><i class="bi bi-trash me-2"></i>Supprimer</a>
                 </td>
             </tr>
 
@@ -61,7 +50,7 @@
     </c:if>
 
     <div class="d-flex justify-content-end mt-3 mb-3">
-        <a href="product-form.jsp" class="btn btn-success" role="button"><i class="bi bi-plus-circle me-2"></i>Ajouter un produit</a>
+        <a href="new" class="btn btn-success" role="button"><i class="bi bi-plus-circle me-2"></i>Ajouter un produit</a>
     </div>
 </div>
 

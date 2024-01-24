@@ -33,43 +33,54 @@ public class ServletProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        boolean logged = session.getAttribute("isLogged") != null && (boolean) session.getAttribute("isLogged");
+
+        if(logged){
+
         String action = request.getServletPath();
 
-        try {
-            switch (action) {
-                case "/new":
-                    showNewForm(request, response);
-                    break;
-                case "/insert":
-                    insertProduct(request, response);
-                    break;
-                case "/delete":
-                    deleteProduct(request, response);
-                    break;
-//                case "/edit":
-//                    showEditForm(request, response);
-//                    break;
-                case "/details":
-                    showProduct(request, response);
-                    break;
-                case "/update":
-                    updateProduct(request, response);
-                    break;
-                case "/list":
-                    listProduct(request, response);
-                    break;
-                default:
-                    listProduct(request, response);
-                    break;
+            try {
+                switch (action) {
+                    case "/new":
+                        showNewForm(request, response);
+                        break;
+                    case "/insert":
+                        insertProduct(request, response);
+                        break;
+                    case "/delete":
+                        deleteProduct(request, response);
+                        break;
+                    case "/edit":
+                        showEditForm(request, response);
+                        break;
+                    case "/details":
+                        showProduct(request, response);
+                        break;
+                    case "/update":
+                        updateProduct(request, response);
+                        break;
+                    case "/list":
+                        listProduct(request, response);
+                        break;
+                    default:
+                        listProduct(request, response);
+                        break;
+                }
+            } catch (SQLException ex) {
+                throw new ServletException(ex);
             }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
+        }else{
+            response.sendRedirect("signin.jsp");
         }
+
     }
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        request.setAttribute("products", productDAO.getAllProducts());
+        request.setAttribute("products", productDAO.findAll());
         request.getRequestDispatcher("product-list.jsp").forward(request,response);
     }
 
@@ -80,7 +91,7 @@ public class ServletProduct extends HttpServlet {
     }
 
     private void insertProduct(HttpServletRequest req, HttpServletResponse resp)
-            throws SQLException, IOException {
+            throws SQLException, IOException, ServletException {
 
         String reference = req.getParameter("reference");
         String brand = req.getParameter("brand");
@@ -89,23 +100,22 @@ public class ServletProduct extends HttpServlet {
         int storage = Integer.parseInt(req.getParameter("storage"));
         Product product = new Product(reference, brand, saleDate, price, storage);
 
-        if(productDAO.addProduct(product)) {
+        if (productDAO.create(product)) {
             resp.sendRedirect("list");
         }else{
             resp.sendRedirect("product-form.jsp");
         }
-
     }
+
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Product product = productDAO.getProductById(id);
+        Product product = productDAO.findById(id);
         if(product != null){
-            productDAO.deleteProduct(id);
-        }else {
-            response.sendRedirect("product-list.jsp");
+            productDAO.delete(product);
         }
+        response.sendRedirect("list");
     }
 
     private void showProduct(HttpServletRequest request, HttpServletResponse response)
@@ -113,7 +123,7 @@ public class ServletProduct extends HttpServlet {
 
         if (request.getParameter("id") != null) {
             long id = Long.parseLong(request.getParameter("id"));
-            Product product = productDAO.getProductById(id);
+            Product product = productDAO.findById(id);
 
             if (product != null) {
                 request.setAttribute("product", product);
@@ -128,22 +138,22 @@ public class ServletProduct extends HttpServlet {
     }
 
 
-//    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, ServletException, IOException {
-//        long id = Long.parseLong(request.getParameter("id"));
-//
-//        Product existingProduct = productDAO.getProductById(id);
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("update-form.jsp");
-//        request.setAttribute("product", existingProduct);
-//        dispatcher.forward(request, response);
-//    }
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        long id = Long.parseLong(request.getParameter("id"));
+
+        Product existingProduct = productDAO.findById(id);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product-form.jsp");
+        request.setAttribute("product", existingProduct);
+        dispatcher.forward(request, response);
+    }
 
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         long id = Long.parseLong(request.getParameter("id"));
-        Product productToUpdate = productDAO.getProductById(id);
+        Product productToUpdate = productDAO.findById(id);
 
         if (productToUpdate != null) {
             // Update the existing product
@@ -156,17 +166,12 @@ public class ServletProduct extends HttpServlet {
             // Call the image handling method
             handleImageUpload(request, "image", productToUpdate);
 
-            if (productDAO.updateProduct(productToUpdate)) {
-                request.setAttribute("msg", "Mise à jour réussie");
-            } else {
-                request.setAttribute("msg", "Erreur dans la mise à jour");
-            }
-        } else {
-            request.setAttribute("msg", "Produit introuvable");
+            if (productDAO.update(productToUpdate)) {
+                    response.sendRedirect("list");
+                }else{
+                    response.sendRedirect("product-form.jsp");
+                }
         }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product-details.jsp");
-        dispatcher.forward(request, response);
     }
 
 

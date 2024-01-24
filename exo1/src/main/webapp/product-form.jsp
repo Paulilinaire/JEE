@@ -12,48 +12,48 @@
     <h2 class="text-light mb-4">Formulaire de création d'un product</h2>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-outline-info" href="product-list.jsp" role="button">
+        <a class="btn btn-outline-info" href="${pageContext.request.contextPath}/product-list.jsp" role="button">
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 
-    <card class="card border border-info-subtle" >
+    <div class="card border border-info-subtle" >
         <div class="card-body">
-            <form action= "${product == null ? 'insert' : 'update'}" method="post" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/${product == null ? 'insert' : 'update'}" method="post" enctype="multipart/form-data">
                 <c:if test="${product != null}">
                     <input type="hidden" name="id" value="${product.getId()}">
                 </c:if>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputEmail4">Marque: </label>
-                        <input type="text" class="form-control" id="inputEmail4" name="brand" value="${product != null ? product.getBrand() : ''}">
+                        <label for="inputReference">Reference: </label>
+                        <input type="text" class="form-control" id="inputReference" name="reference" value="${product != null ? product.getReference() : ''}">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPassword4">Reference: </label>
-                        <input type="text" class="form-control" id="inputPassword4" name="reference" value="${product != null ? product.getReference() : ''}">
+                        <label for="inputBrand">Marque: </label>
+                        <input type="text" class="form-control" id="inputBrand" name="brand" value="${product != null ? product.getBrand() : ''}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputAddress">Prix: </label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="12" name="price" value="${product != null ? product.getPrice() : ''}">
+                        <label for="inputPrice">Prix: </label>
+                        <input type="text" class="form-control" id="inputPrice" name="price" value="${product != null ? product.getPrice() : ''}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputAddress2">Stock: </label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="50" name="stock" value="${product != null ? product.getStock() : ''}">
+                        <label for="inputStorage">Stock: </label>
+                        <input type="text" class="form-control" id="inputStorage" name="stock" value="${product != null ? product.getStorage() : ''}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputAddress3">Date de vente: </label>
-                        <input type="date" class="form-control" id="inputAddress3"  name="buyDate" value="${product != null ? product.getBuyDate() : ''}">
+                        <label for="inputSaleDate">Date de vente: </label>
+                        <input type="date" class="form-control" id="inputSaleDate" name="saleDate" value="${product != null ? product.getSaleDate() : ''}">
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success"><span class="bi bi-plus-circle me-2"></span>Créer</button>
+                    <button type="submit" class="btn btn-success"><span class="bi bi-plus-circle me-2"></span>${product == null ? 'Créer' : 'Mettre à jour'}</button>
                 </div>
 
             </form>
         </div>
-    </card>
+    </div>
 </div>
 </body>
 </html>

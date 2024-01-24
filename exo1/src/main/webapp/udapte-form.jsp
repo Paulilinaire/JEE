@@ -19,7 +19,7 @@
 
     <card class="card border border-info-subtle" >
         <div class="card-body">
-            <form action="product" method="post">
+            <form action="update" method="post">
 
                 <div class="mb-3">
                     <label for="reference" class="form-label">Nom :</label>

@@ -14,7 +14,7 @@
     <h1 class="mb-4">Détail du produit</h1>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-outline-info" href="product-list.jsp" role="button">
+        <a class="btn btn-outline-info" href="list" role="button">
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 
@@ -35,6 +35,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Image</h5>
                     <img src="${product.imagePath}" alt="Product Image" class="img-fluid">
+                </div>
+                <div class="card-body mt-3">
+                    <a href="delete?id=${product.getId()}" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </c:when>
