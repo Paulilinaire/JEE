@@ -1,6 +1,6 @@
-package servlets;
+package com.example.exohospital.servlets;
 
-import dao.UserDAO;
+import com.example.exohospital.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,19 +8,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 import java.io.IOException;
 
-@WebServlet(name = "signin", value = "/signin")
-public class ServletAuth extends HttpServlet {
+@WebServlet(name = "login", value = "/login")
+public class LoginServlet extends HttpServlet {
 
-    private UserDAO userDAO = new UserDAO();
+    private UserService userService = new UserService();
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        boolean isAuthenticated = userDAO.getUserByAuth(username, password);
+        boolean isAuthenticated = userService.getUserByAuth(username, password);
 
         if (isAuthenticated) {
             // Set session attributes to indicate the user is logged in

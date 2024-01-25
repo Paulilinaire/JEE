@@ -14,14 +14,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <div class="d-flex justify-content-end">
           <li class="nav-item text-end">
               <a class="nav-link" href="user-form.jsp">S'inscrire</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="signin.jsp">Se connecter</a>
           </li>
-        </div>
       </ul>
     </div>
   </nav>

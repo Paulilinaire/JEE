@@ -1,28 +1,15 @@
-package dao;
+package com.example.exohospital.services;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import model.Product;
-import model.User;
-import model.User;
+import com.example.exohospital.entities.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.query.Query;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
-public class UserDAO extends IBaseDAO {
+public class UserService extends BaseService {
 
-    public UserDAO() {
+    public UserService() {
         super();
     }
 

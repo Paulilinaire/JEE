@@ -64,26 +64,6 @@ public class ProductDAO extends IBaseDAO {
         }
     }
 
-    // Other methods with try-catch blocks...
-
-    public boolean deleteByBrand(String brand) {
-        try {
-            session = sessionFactory.openSession();
-            Query query = session.createQuery("delete Product where brand = :brand");
-            query.setParameter("brand", brand);
-            session.getTransaction().begin();
-            int success = query.executeUpdate();
-            session.getTransaction().commit();
-            return success > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-    }
 
     public Product findById(long id) {
         try {
