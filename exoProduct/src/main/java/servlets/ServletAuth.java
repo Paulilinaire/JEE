@@ -29,7 +29,7 @@ public class ServletAuth extends HttpServlet {
             session.setAttribute("username", username);
 
             // Redirect to the home page
-            resp.sendRedirect("product-list.jsp");
+            resp.sendRedirect("list");
         } else {
             req.setAttribute("message", "Authentication failed. Please check your username and password.");
             req.getRequestDispatcher("auth-failed.jsp").forward(req, resp);

@@ -9,10 +9,11 @@
 <body class="bg-dark">
 <jsp:include page="WEB-INF/includes/header.jsp"/>
 <div class="container mt-5">
+
     <h2 class="text-light mb-4">Formulaire de création d'un product</h2>
 
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-outline-info" href="${pageContext.request.contextPath}/product-list.jsp" role="button">
+        <a class="btn btn-outline-info" href="list" role="button">
             <i class="bi bi-arrow-bar-left me-2"></i>Précédent</a>
     </div>
 
@@ -24,26 +25,30 @@
                 </c:if>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputReference">Reference: </label>
-                        <input type="text" class="form-control" id="inputReference" name="reference" value="${product != null ? product.getReference() : ''}">
+                        <label for="reference">Reference: </label>
+                        <input type="text" class="form-control" id="reference" name="reference" value="${product.getReference()}">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputBrand">Marque: </label>
-                        <input type="text" class="form-control" id="inputBrand" name="brand" value="${product != null ? product.getBrand() : ''}">
+                        <label for="brand">Marque: </label>
+                        <input type="text" class="form-control" id="brand" name="brand" value="${product.getBrand()}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="inputPrice">Prix: </label>
-                        <input type="text" class="form-control" id="inputPrice" name="price" value="${product != null ? product.getPrice() : ''}">
+                        <label for="price">Prix: </label>
+                        <input type="text" class="form-control" id="price" name="price" value="${product.getPrice()}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputStorage">Stock: </label>
-                        <input type="text" class="form-control" id="inputStorage" name="stock" value="${product != null ? product.getStorage() : ''}">
+                        <label for="storage">Stock: </label>
+                        <input type="text" class="form-control" id="storage" name="storage" value="${product.getStorage()}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputSaleDate">Date de vente: </label>
-                        <input type="date" class="form-control" id="inputSaleDate" name="saleDate" value="${product != null ? product.getSaleDate() : ''}">
+                        <label for="saleDate">Date de vente: </label>
+                        <input type="date" class="form-control" id="saleDate" name="saleDate" value="${product.getSaleDate()}">
+                    </div>
+                    <div>
+                        <label for="image">Image: </label>
+                        <input type="file" id="image" name="image" value="${product.getImage()}">
                     </div>
                 </div>
 

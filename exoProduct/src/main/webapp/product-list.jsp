@@ -28,7 +28,7 @@
 
         <c:forEach items="${products}" var="product">
             <tr>
-                <td></td>
+                <td><img src="${pageContext.request.contextPath}/imageServlet?id=${product.getId()}" class="img-thumbnail" style="width: 50px;height: 50px;" alt="Image"></td>
                 <td>${product.getReference()}</td>
                 <td>${product.getBrand()}</td>
                 <td>${product.getPrice()} €</td>

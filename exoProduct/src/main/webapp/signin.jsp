@@ -13,7 +13,8 @@
 
 <h2 class="text-light mt-3 mb-3">Connecte-toi</h2>
 
-<card class="card border border-info-subtle">
+
+<div class="card border border-info-subtle w-50">
     <div class="card-body">
     <form action="signin" method="post">
         <div class="mb-3">
@@ -28,7 +29,7 @@
         </div>
     </form>
     </div>
-</card>
+</div>
 </div>
 </body>
 </html>

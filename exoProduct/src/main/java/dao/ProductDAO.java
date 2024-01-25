@@ -17,7 +17,7 @@ public class ProductDAO extends IBaseDAO {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            session.save(o);
+            session.saveOrUpdate(o);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {

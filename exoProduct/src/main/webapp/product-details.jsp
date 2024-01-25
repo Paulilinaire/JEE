@@ -11,6 +11,7 @@
 <body class="bg-dark text-light">
 <jsp:include page="WEB-INF/includes/header.jsp"/>
 <div class="container mt-5">
+
     <h1 class="mb-4">Détail du produit</h1>
 
     <div class="d-flex justify-content-end mb-3">
@@ -20,6 +21,8 @@
 
     <c:choose>
         <c:when test="${not empty product}">
+            <div class="d-flex justify-content-center">
+                <img src="${pageContext.request.contextPath}/imageServlet?id=${product.getId()}" class="card-img-top img-thumbnail w-25 h-25 me-4" alt="Image du Produit">
             <div class="card text-white bg-secondary mb-3 border border-info">
                 <div class="card-body">
                     <h5 class="card-title">Référence</h5>
@@ -31,14 +34,10 @@
                     <li class="list-group-item"><strong>Date de vente:</strong> ${product.saleDate}</li>
                     <li class="list-group-item"><strong>Stock:</strong> ${product.storage}</li>
                 </ul>
-                <!-- Add image display logic here -->
-                <div class="card-body">
-                    <h5 class="card-title">Image</h5>
-                    <img src="${product.imagePath}" alt="Product Image" class="img-fluid">
-                </div>
-                <div class="card-body mt-3">
+                <div class="card-body d-flex justify-content-end mt-3">
                     <a href="delete?id=${product.getId()}" class="btn btn-danger">Delete</a>
                 </div>
+            </div>
             </div>
         </c:when>
         <c:otherwise>
