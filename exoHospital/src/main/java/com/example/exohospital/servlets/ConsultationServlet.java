@@ -1,7 +1,9 @@
 package com.example.exohospital.servlets;
 
 import com.example.exohospital.entities.Consultation;
+import com.example.exohospital.entities.Patient;
 import com.example.exohospital.services.ConsultationService;
+import com.example.exohospital.services.PatientService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,14 +13,19 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 @WebServlet("/consultation")
 public class ConsultationServlet extends HttpServlet {
 
     private ConsultationService consultationService;
+    private PatientService patientService;
 
     public void init() {
         consultationService = new ConsultationService();
+        patientService = new PatientService();
     }
 
     @Override
@@ -38,7 +45,7 @@ public class ConsultationServlet extends HttpServlet {
                     showNewForm(request, response);
                     break;
                 case "/consultation/insert":
-//                    insertConsultation(request, response);
+                    insertConsultation(request, response);
                     break;
                 case "/consultation/details":
                     showConsultation(request, response);
@@ -68,22 +75,30 @@ public class ConsultationServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-//    private void insertConsultation(HttpServletRequest req, HttpServletResponse resp)
-//            throws SQLException, IOException, ServletException {
-//
-//        String medicine = req.getParameter("medicine");
-//        System.out.println("medicine " + medicine);
-//        String duration = req.getParameter("duration");
-//        System.out.println("duration " + duration);
-//
-//        Consultation consultation = new Consultation(date, doctorName, patientId);
-//
-//        if (consultationService.create(consultation)) {
-//            resp.sendRedirect("list");
-//        } else {
-//            resp.sendRedirect("consultation-form.jsp");
-//        }
-//    }
+    private void insertConsultation(HttpServletRequest req, HttpServletResponse resp)
+            throws SQLException, IOException, ServletException {
+
+        try {
+            LocalDate date = LocalDate.parse(req.getParameter("date"));
+            String doctorName = req.getParameter("doctorName");
+            long patientId = Long.parseLong(req.getParameter("patientId"));
+
+            Patient patient = patientService.findById(patientId);
+
+            Consultation consultation = new Consultation(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()), doctorName, patient);
+
+            if (consultationService.create(consultation)) {
+                resp.sendRedirect("/details?id=" + patient.getId());
+            } else {
+                // Handle error (e.g., show an error message)
+                resp.sendRedirect("consultation-form.jsp");
+            }
+        } catch (Exception e) {
+            // Handle parsing or other exceptions
+            resp.sendRedirect("consultation-form.jsp");
+        }
+    }
+
 
 
     private void showConsultation(HttpServletRequest request, HttpServletResponse response)

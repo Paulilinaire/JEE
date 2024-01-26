@@ -42,4 +42,10 @@ public class Consultation {
         this.prescriptions = prescriptions;
         this.careSheets = careSheets;
     }
+
+    public Consultation(Date date, String doctorName, Patient patient) {
+        this.date = date;
+        this.doctorName = doctorName;
+        this.patient = patient;
+    }
 }

@@ -11,7 +11,7 @@
 <jsp:include page="/includes/header.jsp"/>
 <div class="container mt-5">
 
-    <h1 class="mb-4">Détail du patient</h1>
+    <h2 class="mb-4">Détail du patient</h2>
 
     <div class="d-flex justify-content-end mb-3">
         <a class="btn btn-outline-primary" href="list" role="button">
@@ -32,11 +32,11 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>Date de naissance:</strong> ${patient.birthDate}</li>
                 </ul>
-                <div class="d-flex justify-content-center mt-3 mb-3">
-                    <c:if test="${isLogged}">
-                        <a href="insert?id=${patient.getId()}" role="button" class="btn btn-success">Ajouter consultation</a>
-                    </c:if>
-                </div>
+                <c:if test="${isLogged}">
+                    <div class="d-flex justify-content-center mt-3 mb-3">
+                        <a href="consultation-form.jsp" class="btn btn-success">Ajouter consultation</a>
+                    </div>
+                </c:if>
             </div>
             </div>
         </c:when>

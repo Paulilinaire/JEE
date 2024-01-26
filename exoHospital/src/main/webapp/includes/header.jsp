@@ -8,7 +8,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg bg-light shadow-lg" data-bs-theme="light">
-  <a class="navbar-brand text-info" href="list"><i class="bi bi-prescription2"></i>MedApp</a>
+  <a class="navbar-brand text-info" href="list"><i class="bi bi-prescription2 ms-2 me-1"></i>MedApp</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
