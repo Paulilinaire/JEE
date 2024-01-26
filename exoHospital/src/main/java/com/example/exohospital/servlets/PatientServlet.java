@@ -64,9 +64,22 @@ public class PatientServlet extends HttpServlet {
 
     private void listPatient(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        request.setAttribute("patients", patientService.findAll());
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+        String searchName = request.getParameter("searchName");
+
+        List<Patient> patients;
+
+        if (searchName != null && !searchName.isEmpty()) {
+            // Perform search based on the name
+            patients = patientService.findByName(searchName);
+        } else {
+            // If no search parameter, retrieve all patients
+            patients = patientService.findAll();
+        }
+
+        request.setAttribute("patients", patients);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

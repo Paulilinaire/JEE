@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success"><span class="bi bi-plus-circle me-2"></span>Créer</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i>Créer</button>
                 </div>
 
             </form>

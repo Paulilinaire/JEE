@@ -1,23 +1,23 @@
 package com.example.exohospital.services;
 
-import com.example.exohospital.entities.Patient;
+import com.example.exohospital.entities.CareSheet ;
 import com.example.exohospital.interfaces.Repository;
 import org.hibernate.query.Query;
 
 import java.util.Collections;
 import java.util.List;
 
-public class PatientService extends BaseService implements Repository<Patient>{
+public class CareSheetService extends BaseService implements Repository<CareSheet>{
 
-    public PatientService(){
+    public CareSheetService(){
         super();
     }
 
-    public boolean create(Patient patient) {
+    public boolean create(CareSheet careSheet) {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            session.saveOrUpdate(patient);
+            session.saveOrUpdate(careSheet);
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -30,11 +30,11 @@ public class PatientService extends BaseService implements Repository<Patient>{
         }
     }
 
-//    public boolean update(Patient patient) {
+//    public boolean update(CareSheet careSheet) {
 //        try {
 //            session = sessionFactory.openSession();
 //            session.beginTransaction();
-//            session.update(patient);
+//            session.update(careSheet);
 //            session.getTransaction().commit();
 //            return true;
 //        } catch (Exception e) {
@@ -47,11 +47,11 @@ public class PatientService extends BaseService implements Repository<Patient>{
 //        }
 //    }
 
-//    public boolean delete(Patient o) {
+//    public boolean delete(CareSheet o) {
 //        try {
 //            session = sessionFactory.openSession();
 //            session.beginTransaction();
-//            session.delete(patient);
+//            session.delete(careSheet);
 //            session.getTransaction().commit();
 //            return true;
 //        } catch (Exception e) {
@@ -65,12 +65,12 @@ public class PatientService extends BaseService implements Repository<Patient>{
 //    }
 //
 
-    public Patient findById(long id) {
+    public CareSheet findById(long id) {
         try {
-            Patient patient = null;
+            CareSheet careSheet = null;
             session = sessionFactory.openSession();
-            patient = (Patient) session.get(Patient.class, id);
-            return patient;
+            careSheet = (CareSheet) session.get(CareSheet .class, id);
+            return careSheet;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -81,31 +81,13 @@ public class PatientService extends BaseService implements Repository<Patient>{
         }
     }
 
-    public List<Patient> findAll() {
+    public List<CareSheet > findAll() {
         try {
-            List<Patient> patientList = null;
+            List<CareSheet > careSheetList = null;
             session = sessionFactory.openSession();
-            Query<Patient> patientQuery = session.createQuery("from Patient");
-            patientList = patientQuery.list();
-            return patientList;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-    }
-
-    public List<Patient> findByName(String name) {
-        try {
-            List<Patient> patientList = null;
-            session = sessionFactory.openSession();
-            Query<Patient> patientQuery = session.createQuery("from Patient where lower(concat(firstName, ' ', lastName)) like :name", Patient.class);
-            patientQuery.setParameter("name", "%" + name.toLowerCase() + "%");
-            patientList = patientQuery.list();
-            return patientList;
+            Query<CareSheet > careSheetQuery = session.createQuery("from CareSheet ");
+            careSheetList = careSheetQuery.list();
+            return careSheetList;
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();

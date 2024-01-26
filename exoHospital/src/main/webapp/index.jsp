@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add patient</title>
+    <title>Welcome to MedApp</title>
     <jsp:include page="/includes/head.jsp"/>
 
 </head>
@@ -11,7 +11,8 @@
 
 <div class="container mt-4">
 
-    <h1 class="mb-3">La liste des patients</h1>
+    <h1 class="mb-5">La liste des patients</h1>
+
 
     <table class="table table-striped text-center" data-bs-theme="light">
         <thead>
@@ -19,7 +20,6 @@
             <th scope="col">Image</th>
             <th scope="col">Prénom</th>
             <th scope="col">Nom</th>
-            <th scope="col">Date de naissance</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -30,9 +30,8 @@
                 <td><img src="${pageContext.request.contextPath}/imageServlet?id=${patient.getId()}" class="img-thumbnail" style="width: 50px;height: 50px;" alt="Image"></td>
                 <td>${patient.getFirstName()}</td>
                 <td>${patient.getLastName()}</td>
-                <td>${patient.getBirthDate()} €</td>
                 <td>
-                    <a href="details?id=${patient.getId()}" role="button" class="btn btn-warning me-2"><i class="bi bi-eye me-2"></i>Détails</a>
+                    <a href="details?id=${patient.getId()}" role="button" class="btn btn-info"><i class="bi bi-eye me-2"></i>Détails</a>
                 </td>
             </tr>
 
@@ -46,7 +45,7 @@
 
     <c:if test="${isLogged}">
         <div class="d-flex justify-content-end mt-3 mb-3">
-            <a href="new" class="btn btn-success" role="button"><i class="bi bi-plus-circle me-2"></i>Ajouter un patient</a>
+            <a href="new" class="btn btn-outline-primary" role="button"><i class="bi bi-plus-circle me-2"></i>Ajouter un patient</a>
         </div>
     </c:if>
 </div>

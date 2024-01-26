@@ -1,46 +1,42 @@
 package com.example.exohospital.services;
 
 import com.example.exohospital.entities.User;
+import com.example.exohospital.interfaces.Repository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class UserService extends BaseService {
+public class UserService extends BaseService implements Repository<User> {
 
     public UserService() {
         super();
     }
 
 
-    public void addUser(User user) {
+
+
+
+    @Override
+    public boolean create(User user) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
+            return true;
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
         }
+        return false;
     }
 
-    public List<User> getAllUsers() {
-        List<User> userList = null;
-        try (Session session = sessionFactory.openSession()) {
-            Query<User> userQuery = session.createQuery("from User", User.class);
-            userList = userQuery.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return userList;
-    }
-
-
-    public User getUserById(long id) {
+    @Override
+    public User findById(long id) {
         User user = null;
         try (Session session = sessionFactory.openSession()) {
             user = session.get(User.class, id);
@@ -50,6 +46,17 @@ public class UserService extends BaseService {
         return user;
     }
 
+    @Override
+    public List<User> findAll() {
+        List<User> userList = null;
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> userQuery = session.createQuery("from User", User.class);
+            userList = userQuery.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
     public boolean getUserByAuth(String username, String password) {
         User user = null;
         try (Session session = sessionFactory.openSession()) {
@@ -60,21 +67,6 @@ public class UserService extends BaseService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return user != null; // returns true if a user is found with the provided username and password, and false otherwise
-    }
-
-
-    public void deleteUser(long id) {
-        Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            User userToDelete = session.get(User.class, id);
-            session.delete(userToDelete);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
+        return user != null;
     }
 }

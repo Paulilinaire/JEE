@@ -10,8 +10,8 @@
     <h2 class="mb-3">S'enregistrer</h2>
     <form action="user" method="post">
         <div class="mb-3">
-            <label for="name" class="form-label">Identifiant</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <label for="username" class="form-label">Identifiant</label>
+            <input type="text" class="form-control" id="username" name="username">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Adresse email</label>

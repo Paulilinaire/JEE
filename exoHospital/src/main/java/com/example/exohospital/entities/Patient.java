@@ -20,7 +20,7 @@ public class Patient {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String lastname;
+    private String lastName;
 
     private String firstName;
 
@@ -34,8 +34,8 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<Consultation> consultations;
 
-    public Patient(String lastname, String firstName, Date birthDate, byte[] image) {
-        this.lastname = lastname;
+    public Patient(String lastName, String firstName, Date birthDate, byte[] image) {
+        this.lastName = lastName;
         this.firstName = firstName;
         this.birthDate = birthDate;
         this.image = image;
