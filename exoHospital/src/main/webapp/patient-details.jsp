@@ -21,7 +21,7 @@
     <c:choose>
         <c:when test="${not empty patient}">
             <div class="d-flex justify-content-center">
-                <img src="${pageContext.request.contextPath}/imageServlet?id=${patient.getId()}" class="card-img-top img-thumbnail w-25 h-25 me-4" alt="Image du Produit">
+                <img src="${pageContext.request.contextPath}/imageServlet?id=${patient.getId()}" class="card-img-top img-thumbnail w-25 h-25 me-4" alt="Image du Patient">
             <div class="card text-white bg-info-subtle mb-3 border border-info">
                 <div class="card-body">
                     <h5 class="card-title text-info">Nom:</h5>

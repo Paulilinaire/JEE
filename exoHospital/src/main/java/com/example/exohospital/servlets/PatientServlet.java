@@ -69,10 +69,8 @@ public class PatientServlet extends HttpServlet {
         List<Patient> patients;
 
         if (searchName != null && !searchName.isEmpty()) {
-            // Perform search based on the name
             patients = patientService.findByName(searchName);
         } else {
-            // If no search parameter, retrieve all patients
             patients = patientService.findAll();
         }
 
@@ -94,7 +92,7 @@ public class PatientServlet extends HttpServlet {
 
         String fileType = imagePart.getContentType();
 
-        if(fileType.equalsIgnoreCase("image/jpeg")){ // verifie si l'image est bien png
+        if(fileType.equalsIgnoreCase("image/jpeg")){ // verifie si l'image est bien jpeg
 
             byte[] imagesBytes = null;
             if(imagePart != null){

@@ -41,16 +41,16 @@ public class ConsultationServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "/consultation/new":
+                case "/new":
                     showNewForm(request, response);
                     break;
-                case "/consultation/insert":
+                case "/insert":
                     insertConsultation(request, response);
                     break;
-                case "/consultation/details":
+                case "/details":
                     showConsultation(request, response);
                     break;
-                case "/consultation/list":
+                case "/list":
                     listConsultation(request, response);
                     break;
                 default:
@@ -66,7 +66,7 @@ public class ConsultationServlet extends HttpServlet {
     private void listConsultation(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         request.setAttribute("consultations", consultationService.findAll());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("patient-details.jsp").forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
@@ -90,11 +90,9 @@ public class ConsultationServlet extends HttpServlet {
             if (consultationService.create(consultation)) {
                 resp.sendRedirect("/details?id=" + patient.getId());
             } else {
-                // Handle error (e.g., show an error message)
                 resp.sendRedirect("consultation-form.jsp");
             }
         } catch (Exception e) {
-            // Handle parsing or other exceptions
             resp.sendRedirect("consultation-form.jsp");
         }
     }
@@ -110,13 +108,13 @@ public class ConsultationServlet extends HttpServlet {
 
             if (consultation != null) {
                 request.setAttribute("consultation", consultation);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("consultation-details.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("patient-details.jsp");
                 dispatcher.forward(request, response);
             } else {
-                response.sendRedirect("list");
+                response.sendRedirect("consultation-form.jsp");
             }
         } else {
-            response.sendRedirect("list");
+            response.sendRedirect("consultation-form.jsp");
         }
     }
 

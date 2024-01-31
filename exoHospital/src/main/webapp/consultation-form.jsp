@@ -18,7 +18,7 @@
                         <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="doctorName" class="form-label">Doctor Name:</label>
+                        <label for="doctorName" class="form-label">Nom du docteur:</label>
                         <input type="text" class="form-control" id="doctorName" name="doctorName" required>
                     </div>
                 </div>

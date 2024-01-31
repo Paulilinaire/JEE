@@ -14,9 +14,11 @@ public class ConsultationService extends BaseService implements Repository<Consu
     }
 
     public boolean create(Consultation consultation) {
+        long patientId = 0;
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
+            session.get(Consultation.class, patientId);
             session.saveOrUpdate(consultation);
             session.getTransaction().commit();
             return true;
