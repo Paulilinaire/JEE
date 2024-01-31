@@ -40,4 +40,12 @@ public class Patient {
         this.birthDate = birthDate;
         this.image = image;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
 }

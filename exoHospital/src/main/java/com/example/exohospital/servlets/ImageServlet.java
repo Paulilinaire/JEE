@@ -23,11 +23,11 @@ public class ImageServlet extends HttpServlet {
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Patient product = patientService.findById(id);
+        Patient patient = patientService.findById(id);
         response.setContentType("image/png");
         OutputStream out = response.getOutputStream();
-        if (product.getImage() != null) {
-            out.write(product.getImage());
+        if (patient.getImage() != null) {
+            out.write(patient.getImage());
         } else {
             out.write(null);
         }
